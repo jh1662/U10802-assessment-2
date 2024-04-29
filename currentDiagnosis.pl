@@ -5,7 +5,7 @@ glucoseCurrent(A) :- A >= 200.
 glycatedHemoglobin(A) :- A >= 48.
 %^ Glycated hemoglobin test - positive when X >= 48 mmol/mol
 
-hasDiabetes(A) :- glucoseFasting(A), glucoseCurrent(A), glycatedHemoglobin(A).
+hasDiabetes(A,B,C) :- op(glucoseFasting(A), glucoseCurrent(B), glycatedHemoglobin(C)).
 %^ can be either type 1 or 2
 
 %: To differ from type 1 and 2 (or both)
@@ -13,6 +13,6 @@ hasDiabetes(A) :- glucoseFasting(A), glucoseCurrent(A), glycatedHemoglobin(A).
 %: source - https://www.mayoclinic.org/diseases-conditions/type-1-diabetes/diagnosis-treatment/drc-20353017#:~:text=If%20you're%20diagnosed%20with,the%20diagnosis%20isn't%20certain.
 urineHasKetones(A) :- A=1.
 autoAntibodiesPresent(A) :- A=1.
-hasType1(A) :- urineHasKetones(A), autoAntibodiesPresent(A).
+hasType1(A,B) :- urineHasKetones(A), autoAntibodiesPresent(B).
 
 % https://www.swi-prolog.org/download/stable <-- use this as website IDE has "code limitations"
