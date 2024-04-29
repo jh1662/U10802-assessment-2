@@ -1,3 +1,6 @@
+% https://medium.com/analytics-vidhya/learn-prolog-language-by-creating-an-expert-system-d46a811c58e8
+% https://www.tutorialspoint.com/prolog/index.htm
+
 glucoseFasting(A) :- A >= 126.
 %^ Fasting plasma glucose level test - positive when X >= 126 mg/dL
 glucoseCurrent(A) :- A >= 200.
