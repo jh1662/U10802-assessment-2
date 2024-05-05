@@ -13,7 +13,6 @@ hasDiabetes(A,B,C) :- op(glucoseFasting(A), glucoseCurrent(B), glycatedHemoglobi
 
 %: To differ from type 1 and 2 (or both)
 
-%: source - https://www.mayoclinic.org/diseases-conditions/type-1-diabetes/diagnosis-treatment/drc-20353017#:~:text=If%20you're%20diagnosed%20with,the%20diagnosis%20isn't%20certain.
 urineHasKetones(A) :- A=1.
 autoAntibodiesPresent(A) :- A=1.
 hasType1(A,B) :- urineHasKetones(A), autoAntibodiesPresent(B).
