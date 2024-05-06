@@ -29,7 +29,12 @@ diagnosis_ask(Component, Level) :-
     read(Level)
 .
 diagnosis_indroduction :-
-	write('hello'), nl
+	write('This is the diabetes diagnosis test. Please make sure that the patient meet these requirements for the test:'), nl
+    write('>> Patient must be currently fasting for 8 hours striaght before the fasting glucose blood test'), nl,
+    write('>> Patient must take a 75-gram oral glucose load 2 hours before the current glucose blood test'), nl,
+    write('>> Patient must also take the glycated hemoglobin blood test'), nl,
+    write('Patient is required to do all three tests (not one or two of them) for the diagnosis test to work.'), nl,
+    write('This is because the patient will be diagnosed if all three tests are positive (blood component level exceed limits)'), nl
 .
 diagnosis_dictate(Component, Level):-
     blood_limits(Component, Limit),

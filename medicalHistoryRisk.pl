@@ -1,0 +1,5 @@
+genetic_conditions()
+endocrine_diseases()
+panceatic_affects()
+infections()
+existing_medication()
