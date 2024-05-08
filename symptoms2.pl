@@ -13,7 +13,7 @@ extreme_symptom(adominal_pain).
 extreme_symptom(breath_has_acetone).
 extreme_symptom(decreased_consciousness).
 
-% initialiser predicate
+% initialiser predicate for visual symptoms
 symptoms :-
     write('Starting visual symptom count'), nl,
     symptoms_introduction,
@@ -26,7 +26,7 @@ symptoms_ask(Symptom) :-
     read(Answer),
     Answer == yes
 .
-% introduction of how to the symptom part of the expert system
+% introduction of how to the visual symptom part of the expert system
 symptoms_introduction :-
     write('This test is a quick and cheap alternative to a diagnosis test, please take a diagnosis test if patent is suspected of having diabetes'), nl,
     write('All possible symptoms: "polyuria", "thirst", "weight loss", "fatigue", "blurred vision", "genital itchiness"'), nl,
