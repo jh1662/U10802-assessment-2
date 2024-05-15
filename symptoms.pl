@@ -1,47 +1,47 @@
 % All possible symptoms
-symptom("polyuria").
-symptom("thirst").
-symptom("weight loss").
-symptom("fatigue").
-symptom("blurred vision").
-symptom("genital itchiness").
+symptom(polyuria).
+symptom(thirst).
+symptom(weight_loss).
+symptom(fatigue).
+symptom(blurred_vision).
+symptom(genital_itchiness).
 
-% initialiser predicate
-symptoms :-
-    write('Starting symptom count'), nl,
-    ask_symptoms,
-    loop(0),
-    ask_again.
-
-% introduction
-ask_symptoms :-
-    write('Please enter your symptoms, one per line in speech marks.'), nl,
-    write('Respond with "done" when you finished (not including the speech marks)'), nl,
+% initialiser predicate for visual symptoms
+symptoms(RESULT_SYMPTOMS) :-
+    write('Starting visual symptom count...'), nl,
+    symptoms_introduction,
+    symptoms_dictate(RESULT_SYMPTOMS)
+    %% symptoms_ask_again
+.
+% get users input of sypmtoms
+symptoms_ask(Symptom) :-
+    format('Do you have this symptom: ~w? (yes/no)~n', [Symptom]),
+    read(Answer),
+    Answer == yes
+.
+% introduction of how to the visual symptom part of the expert system
+symptoms_introduction :-
+    write('This is the visual symptoms part of the diagnosis test:'), nl,
     write('All possible symptoms: "polyuria", "thirst", "weight loss", "fatigue", "blurred vision", "genital itchiness"'), nl,
-    write('weighting of a symptom can be increased if you enter it multiple times'), nl.
-
-% incase user made a mistake:
-ask_again :-
-    write('Do you want to redo (otherwise continue) [y/n]'), nl,
-    read(Decision),
-    (Decision = y -> symptoms;
-    Decision = n -> write('proceeding...'), nl;
-    write('invalid answer - enter either: y or n'), nl, ask_again
-    ).
-
-% iterate over each symptom input
-loop(N) :-
-    read(Symptom),
+    write('Each symptom will be saperately asked, respond if patient has them'), nl,
+    write('All symptom are all easily identifiable, as they are all visual, so if you are having trouble spotting a particular then the patient does not have it'), nl
+.
+% dictating the result based on users inputs
+symptoms_dictate(RESULT_SYMPTOMS) :-
+    findall(Symptom, (symptom(Symptom), symptoms_ask(Symptom)), Symptoms),
+    length(Symptoms, Count),
     (
-    Symptom = done -> write('Number of matching symptoms: '), write(N), nl,
-    (
-    	N < 2 -> write('Patient has little or no visible symptoms of diabetes'), nl;
-    	N < 4 -> write('Patient has medium visible symptoms of diabetes'), nl;
-    	write('Patient has high visible symptoms of diabetes'), nl
+        Count < 2 ->  write('Patient has little or no visual symptoms of diabetes - patient is fine'), nl, RESULT_SYMPTOMS = 0;
+        Count < 4 ->  write('Patient has a medium amount of visual symptoms of diabetes - patient is mostly fine but still at risk, please concider taking a diagnostic test if situation gets worse'), nl, RESULT_SYMPTOMS = 1;
+        write('Patient has little or no visual symptoms of diabetes - patient is fine'), RESULT_SYMPTOMS = 2
     )
-    ;
-    symptom(Symptom) -> N1 is N + 1, loop(N1),
-    write(Symptom), write(' - matching symptom added!'), nl
-    ;
-    loop(N), write(Symptom), write(' - symptom doesnt match existing syptoms or is mispelled'), nl
-    ).
+.
+%%% incase user made a mistake
+%% symptoms_ask_again :-
+%%    write('Do you want to redo (otherwise continue) [y/n]'), nl,
+%%    read(Decision),
+%%    (Decision = y -> symptoms;
+%%    Decision = n -> write('proceeding...'), nl;
+%%    write('invalid answer - enter either: y or n'), nl, symptoms_ask_again
+%%    )
+%% .
